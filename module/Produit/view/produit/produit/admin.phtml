@@ -1,0 +1,39 @@
+<?php
+
+$title = 'Administration';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<div class="border rounded-top">
+    <table id="tableAdmin" class="table table-sm text-left m-0">
+        <thead class="thead-light">
+            <tr>
+                <th class="p-2 border-0">Image</th>
+                <th class="p-2 border-0">Nom</th>
+                <th class="p-2 border-0">Description</th>
+                <th class="p-2 border-0">Prix</th>
+                <th class="border-0"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($produits as $produit) : ?>
+            <tr>
+                <td class="text-center"><img src='http://placeholder.pics/svg/100'/></td>
+                <td class="text-left align-middle"><?= $produit->nom ?></td>
+                <td class="text-left align-middle"><?= $produit->description ?></td>
+                <td class="text-left align-middle"><?= $produit->prix ?></td>
+                <td class="text-center align-middle">
+                <a href="<?= $this->url('produit' , ['action' => 'edit', 'id' => $produit->id]) ?>" role="button" class='btn btn-info'/>Modifier</a>
+                <a href="<?= $this->url('produit' , ['action' => 'delete', 'id' => $produit->id]) ?>" role="button" class='btn btn-danger'/>X</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<div class="row justify-content-end mt-3">
+    <div class="col-xs-12 col-8 col-lg-4">
+        <a href="<?= $this->url('produit' , ['action' => 'add']) ?>" role="button" class='btn btn-success'/>Ajouter Produit</a>
+        <a href="<?= $this->url('logout') ?>" role="button" class='btn btn-danger'/>Se deconnecter</a>
+    <div>
+</div>

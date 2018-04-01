@@ -1,0 +1,36 @@
+<?php
+
+$title = 'Panier';
+$this->headTitle($title);
+?>
+
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<?php foreach ($produits as $produit) : ?>
+
+<div class='float-left p-3 divProducts' id='divProduct' *ngFor="let item of items; let i = index">
+  <div class='card'>
+  <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
+    <div class='card-body text-center'>
+      <h3 class='card-title'><a (click)="description(item.id)"><?= $produit->nom ?></a></h3>
+      <p class='card-text'>Prix: <?= $produit->prix ?></p>
+      <a href="<?= $this->url('produit', ['action' => 'retirerPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-danger'/>Retirer du pannier</a>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
+
+<?php if (!empty($produits)) : ?>
+
+    <a href="<?= $this->url('produit', ['action' => 'viderPanier']) ?>" role="button" class='btn btn-danger'/>Vider Panier</a>
+
+<?php else : ?>
+
+    <div class="jumbotron">
+    <h1 class="display-3">Votre panier est vide :(</h1>
+    <hr class="my-4">
+    <p>Vous feriez mieux de revenir au catalogue</p>
+    <a class="btn btn-primary btn-lg" href="<?= $this->url('produit')?>" role="button">Retour au catalogue</a>
+    </div>
+    
+<?php endif;
