@@ -10,11 +10,11 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\StringLength;
+use Zend\Validator\NotEmpty;
 
 class Produit implements InputFilterAwareInterface
 {
     public $id;
-    public $image;
     public $description;
     public $prix;
     public $nom;
@@ -34,7 +34,7 @@ class Produit implements InputFilterAwareInterface
         return [
             'id'     => $this->id,
             'description' => $this->description,
-            'prix' => $this->property_exists,
+            'prix' => $this->prix,
             'nom'  => $this->nom,
         ];
     }
@@ -70,6 +70,9 @@ class Produit implements InputFilterAwareInterface
             'filters' => [
                 ['name' => ToInt::class],
             ],
+            'validator' => [
+                'name' => NotEmpty::class
+            ]
         ]);
 
         $inputFilter->add([

@@ -12,7 +12,7 @@ $this->headTitle($title);
   <div class='card'>
   <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
     <div class='card-body text-center'>
-      <h3 class='card-title'><a (click)="description(item.id)"><?= $produit->nom ?></a></h3>
+      <h3 class='card-title'><a href="<?= $this->url('produit', ["action" => "description", "id" => $produit->id]) ?>"><?= $produit->nom ?></a></h3>
       <p class='card-text'>Prix: <?= $produit->prix ?></p>
       <a href="<?= $this->url('produit', ['action' => 'retirerPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-danger'/>Retirer du pannier</a>
     </div>

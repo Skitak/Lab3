@@ -22,7 +22,9 @@ class ProduitTable
     {
         $panier = [];
         foreach($panierIds as $id){
-            $panier[] = $this->tableGateway->select(['id' => $id])->current();
+            $row = $this->tableGateway->select(['id' => $id])->current();
+            if ($row)
+                $panier[] = $row;
         }
         return $panier;
     }
@@ -69,6 +71,19 @@ class ProduitTable
 
     public function deleteProduit($id)
     {
-        $this->tableGateway->delete(['id' => (int) $id]);
+        $this->tableGateway->delete(['id' => $id]);
     }
+
+    // Utile pour ajouter de nombreux produits dans la base de données.
+    //
+    // public function addProducts(){
+    //     for ($i = 0; $i < 100; $i++){
+    //         $data = [
+    //             'nom' => "Produit " . $i,
+    //             'description'  => "Description produit " . $i,
+    //             'prix'  => 1235
+    //         ];
+    //         $this->tableGateway->insert($data);
+    //     }
+    // }
 }

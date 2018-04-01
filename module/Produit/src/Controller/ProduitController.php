@@ -86,7 +86,15 @@ class ProduitController extends AbstractActionController
     }
 
     public function descriptionAction(){
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (0 === $id) {
+            return $this->redirect()->toRoute('produit');
+        }
 
+        $produit =  $this->tableProduit->getProduit($id);
+        return new ViewModel([
+            'produit' => $produit,
+        ]);
     }
 
     public function addAction()
@@ -115,68 +123,68 @@ class ProduitController extends AbstractActionController
 
     public function editAction()
     {
-        // $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int) $this->params()->fromRoute('id', 0);
 
-        // if (0 === $id) {
-        //     return $this->redirect()->toRoute('album', ['action' => 'add']);
-        // }
+        if (0 === $id) {
+            return $this->redirect()->toRoute('produit', ['action' => 'add']);
+        }
 
-        // // Retrieve the album with the specified id. Doing so raises
-        // // an exception if the album is not found, which should result
-        // // in redirecting to the landing page.
-        // try {
-        //     $album = $this->tableProduit->getAlbum($id);
-        // } catch (\Exception $e) {
-        //     return $this->redirect()->toRoute('album', ['action' => 'index']);
-        // }
+        // Retrieve the produit with the specified id. Doing so raises
+        // an exception if the produit is not found, which should result
+        // in redirecting to the landing page.
+        try {
+            $produit = $this->tableProduit->getProduit($id);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('produit', ['action' => 'index']);
+        }
 
-        // $form = new AlbumForm();
-        // $form->bind($album);
-        // $form->get('submit')->setAttribute('value', 'Edit');
+        $form = new ProduitForm();
+        $form->bind($produit);
+        $form->get('submit')->setAttribute('value', 'Modifier');
 
-        // $request = $this->getRequest();
-        // $viewData = ['id' => $id, 'form' => $form];
+        $request = $this->getRequest();
+        $viewData = ['id' => $id, 'form' => $form];
 
-        // if (! $request->isPost()) {
-        //     return $viewData;
-        // }
+        if (! $request->isPost()) {
+            return $viewData;
+        }
 
-        // $form->setInputFilter($album->getInputFilter());
-        // $form->setData($request->getPost());
+        $form->setInputFilter($produit->getInputFilter());
+        $form->setData($request->getPost());
 
-        // if (! $form->isValid()) {
-        //     return $viewData;
-        // }
+        if (! $form->isValid()) {
+            return $viewData;
+        }
 
-        // $this->tableProduit->saveAlbum($album);
+        $this->tableProduit->saveProduit($produit);
 
-        // // Redirect to album list
-        // return $this->redirect()->toRoute('album', ['action' => 'index']);
+        // Redirect to produit list
+        return $this->redirect()->toRoute('produit', ['action' => 'admin']);
     }
 
     public function deleteAction()
     {
-    //     $id = (int) $this->params()->fromRoute('id', 0);
-    //     if (!$id) {
-    //         return $this->redirect()->toRoute('album');
-    //     }
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('produit', ['action' => 'admin']);
+        }
 
-    //     $request = $this->getRequest();
-    //     if ($request->isPost()) {
-    //         $del = $request->getPost('del', 'No');
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $del = $request->getPost('del', 'Non');
 
-    //         if ($del == 'Yes') {
-    //             $id = (int) $request->getPost('id');
-    //             $this->tableProduit->deleteAlbum($id);
-    //         }
+            if ($del == 'Oui') {
+                $id = (int) $request->getPost('id');
+                $this->tableProduit->deleteProduit($id);
+            }
 
-    //         // Redirect to list of albums
-    //         return $this->redirect()->toRoute('album');
-    //     }
+            // Redirect to list of albums
+            return $this->redirect()->toRoute('produit' , ['action' => 'admin']);
+        }
 
-    //     return [
-    //         'id'    => $id,
-    //         'album' => $this->tableProduit->getAlbum($id),
-    //     ];
+        return [
+            'id'    => $id,
+            'produit' => $this->tableProduit->getProduit($id),
+        ];
     }
 }

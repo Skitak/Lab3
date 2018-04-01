@@ -1,0 +1,23 @@
+<?php
+
+$title = 'Retirer produit';
+$url   = $this->url('produit', ['action' => 'delete', 'id' => $id]);
+
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<p>
+    Voulze vous vraiment retirer l'article suivant :
+    <hr/>  
+    Nom : <?= $this->escapeHtml($produit->nom) ?> - Description :
+    <?= $this->escapeHtml($produit->description) ?>?
+</p>
+
+<form action="<?= $url ?>" method="post">
+<div class="form-group">
+    <input type="hidden" name="id" value="<?= (int) $produit->id ?>" />
+    <input type="submit" class="btn btn-danger" name="del" value="Oui" />
+    <input type="submit" class="btn btn-success" name="del" value="Non" />
+</div>
+</form>

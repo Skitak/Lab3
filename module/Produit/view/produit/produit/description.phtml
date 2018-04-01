@@ -1,0 +1,17 @@
+<?php
+
+$title = 'Catalogue';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<div class='justify-content-center p-5 jumbotron col-lg-3'>
+  <div class='card'>
+  <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
+    <div class='card-body text-center'>
+      <h3 class='card-title'><a href="<?= $this->url('produit', ["action" => "description", "id" => $produit->id]) ?>"><?= $produit->nom ?></a></h3>
+      <p class='card-text'> <?= $produit->description ?></p>
+      <p class='card-text'>Prix: <?= $produit->prix ?></p>
+      <a href="<?= $this->url('produit', ['action' => 'ajouterPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-primary'/>Ajouter au panier</a>
+    </div>
+  </div>
+</div>
