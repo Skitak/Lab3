@@ -29,9 +29,14 @@ class ProduitController extends AbstractActionController
     }
 
     public function indexAction(){
-        $tableProduits =  $this->tableProduit->fetchAll();
+        
+        $paginator =  $this->tableProduit->fetchAll(true);
+        $page = (int) $this->params()->fromQuery('page',1);
+        $page = ($page < 1) ? 1: $page;
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(10);
         return new ViewModel([
-            'produits' => $tableProduits,
+            'paginator' => $paginator,
         ]);
     }
 
@@ -79,9 +84,13 @@ class ProduitController extends AbstractActionController
     }
 
     public function adminAction(){
-        $tableProduits =  $this->tableProduit->fetchAll();
+        $paginator =  $this->tableProduit->fetchAll(true);
+        $page = (int) $this->params()->fromQuery('page',1);
+        $page = ($page < 1) ? 1: $page;
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(10);
         return new ViewModel([
-            'produits' => $tableProduits,
+            'paginator' => $paginator,
         ]);
     }
 
@@ -178,7 +187,6 @@ class ProduitController extends AbstractActionController
                 $this->tableProduit->deleteProduit($id);
             }
 
-            // Redirect to list of albums
             return $this->redirect()->toRoute('produit' , ['action' => 'admin']);
         }
 

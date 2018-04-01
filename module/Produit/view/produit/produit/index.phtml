@@ -4,18 +4,30 @@ $title = 'Catalogue';
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
+<div class="row justify-content-center">
+<?php foreach ($this->paginator as $produit) : ?>
 
-
-<?php foreach ($produits as $produit) : ?>
-
-<div class='float-left p-3 divProducts' id='divProduct'>
-  <div class='card'>
-  <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
-    <div class='card-body text-center'>
-      <h3 class='card-title'><a href="<?= $this->url('produit', ["action" => "description", "id" => $produit->id]) ?>"><?= $produit->nom ?></a></h3>
-      <p class='card-text'>Prix: <?= $produit->prix ?></p>
-      <a href="<?= $this->url('produit', ['action' => 'ajouterPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-primary'/>Ajouter au panier</a>
+  <div class='col-12 col-sm-6 col-lg-3 col-xl-2 p-3 divProducts'>
+    <div class='card'>
+    <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
+      <div class='card-body text-center'>
+        <h3 class='card-title'><a href="<?= $this->url('produit', ["action" => "description", "id" => $produit->id]) ?>"><?= $produit->nom ?></a></h3>
+        <p class='card-text'>Prix: <?= $produit->prix ?></p>
+        <a href="<?= $this->url('produit', ['action' => 'ajouterPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-primary'/>Ajouter au panier</a>
+      </div>
     </div>
   </div>
-</div>
+
 <?php endforeach; ?>
+</div>
+
+<?= $this->paginationControl(
+    // The paginator object:
+    $this->paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'produit', 'action' => 'index']
+) ?>

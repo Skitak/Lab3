@@ -6,9 +6,10 @@ $this->headTitle($title);
 
 <h1><?= $this->escapeHtml($title) ?></h1>
 
+<div class="row justify-content-center">
 <?php foreach ($produits as $produit) : ?>
 
-<div class='float-left p-3 divProducts' id='divProduct' *ngFor="let item of items; let i = index">
+<div class='col-12 col-sm-6 col-lg-3 col-xl-2 p-3 divProducts'>
   <div class='card'>
   <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
     <div class='card-body text-center'>
@@ -19,6 +20,7 @@ $this->headTitle($title);
   </div>
 </div>
 <?php endforeach; ?>
+</div>
 
 <?php if (!empty($produits)) : ?>
 

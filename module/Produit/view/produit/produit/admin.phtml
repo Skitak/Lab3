@@ -4,7 +4,15 @@ $title = 'Administration';
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
-<div class="border rounded-top">
+
+<div class="row justify-content-end mb-5">
+    <div class="col col-lg-4">
+        <a href="<?= $this->url('produit' , ['action' => 'add']) ?>" role="button" class='btn btn-success'/>Ajouter Produit</a>
+        <a href="<?= $this->url('logout') ?>" role="button" class='btn btn-danger'/>Se deconnecter</a>
+    </div>
+</div>
+
+<div class="border justify-content-center rounded-top">
     <table id="tableAdmin" class="table table-sm text-left m-0">
         <thead class="thead-light">
             <tr>
@@ -16,7 +24,7 @@ $this->headTitle($title);
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($produits as $produit) : ?>
+            <?php foreach ($this->paginator as $produit) : ?>
             <tr>
                 <td class="text-center"><img src='http://placeholder.pics/svg/100'/></td>
                 <td class="text-left align-middle"><?= $produit->nom ?></td>
@@ -31,9 +39,14 @@ $this->headTitle($title);
         </tbody>
     </table>
 </div>
-<div class="row justify-content-end mt-3">
-    <div class="col-xs-12 col-8 col-lg-4">
-        <a href="<?= $this->url('produit' , ['action' => 'add']) ?>" role="button" class='btn btn-success'/>Ajouter Produit</a>
-        <a href="<?= $this->url('logout') ?>" role="button" class='btn btn-danger'/>Se deconnecter</a>
-    <div>
-</div>
+
+<?= $this->paginationControl(
+    // The paginator object:
+    $this->paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'produit', 'action' => 'admin']
+) ?>
