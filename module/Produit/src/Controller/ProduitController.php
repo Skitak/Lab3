@@ -28,6 +28,7 @@ class ProduitController extends AbstractActionController
             $_SESSION["panier"] = [];        
     }
 
+    //Retourne tous les produits liées à la page demandée
     public function indexAction(){
         
         $paginator =  $this->tableProduit->fetchAll(true);
@@ -40,6 +41,7 @@ class ProduitController extends AbstractActionController
         ]);
     }
 
+    //Retourne les produits du panier
     public function panierAction(){
         $panier = $_SESSION["panier"];
         return new ViewModel([
@@ -47,7 +49,7 @@ class ProduitController extends AbstractActionController
         ]);
     }
     
-
+    //Ajoute un produit au panier et redirige au panier
     public function ajouterPanierAction(){
         $id = (int) $this->params()->fromRoute('id', 0);
 
@@ -60,6 +62,7 @@ class ProduitController extends AbstractActionController
 
     }
 
+    //Retire un produit du pannier et redirige au panier
     public function retirerPanierAction(){
 
         $id = (int) $this->params()->fromRoute('id', 0);
@@ -78,11 +81,13 @@ class ProduitController extends AbstractActionController
 
     }
 
+    //Vide le panier et redirige
     public function viderPanierAction(){
         $_SESSION["panier"] = [];
         return $this->redirect()->toRoute('produit', ["action" => "panier"]);
     }
 
+    //Retourne tous les produits d'une page pour l'administrateur
     public function adminAction(){
         $paginator =  $this->tableProduit->fetchAll(true);
         $page = (int) $this->params()->fromQuery('page',1);
@@ -94,6 +99,7 @@ class ProduitController extends AbstractActionController
         ]);
     }
 
+    //Retourne la page de description d'un produit demandé
     public function descriptionAction(){
         $id = (int) $this->params()->fromRoute('id', 0);
         if (0 === $id) {
@@ -106,6 +112,7 @@ class ProduitController extends AbstractActionController
         ]);
     }
 
+    //Ajoute un nouveau produit à la base de données
     public function addAction()
     {
         $form = new ProduitForm();
@@ -130,6 +137,7 @@ class ProduitController extends AbstractActionController
         return $this->redirect()->toRoute('produit', ["action" => 'admin']);
     }
 
+    //Modifie un produit de la base de données
     public function editAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
@@ -171,6 +179,7 @@ class ProduitController extends AbstractActionController
         return $this->redirect()->toRoute('produit', ['action' => 'admin']);
     }
 
+    //Supprime un produit de la base de données
     public function deleteAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);

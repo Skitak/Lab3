@@ -36,6 +36,9 @@ return [
         'options' => [
             'mode' => 'restrictive'
         ],
+        // Ici, on gère les authorisations.
+        // La première ligne indique les pages accessibles par tous le monde
+        // La seconde indique les pages qui requièrent une identification
         'controllers' => [
             ProduitController::class => [
                 ['actions' => ['index', 'panier', 'description', 'ajouterPanier', 'retirerPanier','viderPanier', 'panier'], 'allow' => '*'],
