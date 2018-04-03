@@ -1,1 +1,10 @@
-<?= $success?>
+<div class="jumbotron">
+    <?php if($success == 1) :?>
+        <h1 class="display-3">Votre paiement a été accepté :)</h1>
+    <?php else : ?>
+        <h1 class="display-3">Votre paiement a été refusé :(</h1>
+    <?php endif ?>
+    <hr class="my-4">
+    <p>Numéro de transaction: <?= $noConfirm ?> </p>
+    <a class="btn btn-primary btn-lg" href="<?= $this->url('produit')?>" role="button">Retour au catalogue</a>
+</div>

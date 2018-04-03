@@ -94,8 +94,11 @@ class ProduitController extends AbstractActionController
         $success = rand(0,1);
 
         //String 5 lettres + 10 chiffres random
-        $noConfirm = substr(md5(microtime()),rand(0,26),5) . str_pad(rand(0, pow(10, 10)-1), 10, '0', STR_PAD_LEFT);
-        echo $noConfirm;
+        $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        $rand = '';
+        foreach (array_rand($seed, 5) as $k) $rand .= $seed[$k];
+
+        $noConfirm = $rand . str_pad(rand(0, pow(10, 10)-1), 10, '0', STR_PAD_LEFT);
 
         return new ViewModel([
             'noConfirm' => $noConfirm,
