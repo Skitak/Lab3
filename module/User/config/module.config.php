@@ -41,7 +41,7 @@ return [
         // La seconde indique les pages qui requièrent une identification
         'controllers' => [
             ProduitController::class => [
-                ['actions' => ['index', 'panier', 'description', 'ajouterPanier', 'retirerPanier','viderPanier', 'panier'], 'allow' => '*'],
+                ['actions' => ['index', 'panier', 'description', 'ajouterPanier', 'retirerPanier','viderPanier','payer'], 'allow' => '*'],
                 ['actions' => ['add', 'edit', 'delete', 'admin'], 'allow' => '@']
             ],
         ]

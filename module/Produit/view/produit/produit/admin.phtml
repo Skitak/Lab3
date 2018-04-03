@@ -6,9 +6,9 @@ $this->headTitle($title);
 <h1><?= $this->escapeHtml($title) ?></h1>
 
 <div class="row justify-content-end mb-5">
-    <div class="col col-lg-4">
+    <div class="col col-lg-4 btnAdmin">
         <a href="<?= $this->url('produit' , ['action' => 'add']) ?>" role="button" class='btn btn-success'/>Ajouter Produit</a>
-        <a href="<?= $this->url('logout') ?>" role="button" class='btn btn-danger'/>Se deconnecter</a>
+        <a href="<?= $this->url('logout') ?>" role="button" class='btn btn-danger'/>Se déconnecter</a>
     </div>
 </div>
 
