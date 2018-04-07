@@ -6,25 +6,66 @@ $this->headTitle($title);
 
 <h1><?= $this->escapeHtml($title) ?></h1>
 
-<div class="row justify-content-center">
-<?php foreach ($produits as $produit) : ?>
-
-<div class='col-12 col-sm-6 col-lg-3 col-xl-2 p-3 divProducts'>
-  <div class='card'>
-  <img src='http://placeholder.pics/svg/300' class='card-img-top'/>
-    <div class='card-body text-center'>
-      <h3 class='card-title'><a href="<?= $this->url('produit', ["action" => "description", "id" => $produit->id]) ?>"><?= $produit->nom ?></a></h3>
-      <p class='card-text'>Prix: <?= $produit->prix ?></p>
-      <a href="<?= $this->url('produit', ['action' => 'retirerPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-danger'/>Retirer du pannier</a>
+<?php if (!empty($produits)) : ?>
+<?php $sousTotal = 0; ?>
+  <div class="row">
+    <div class="col-md-8 col-sm-12 border justify-content-center rounded-top m-1 p-0">
+        <table class="table table-sm text-left m-0">
+            <thead class="thead-light">
+                <tr>
+                    <th class="p-2 border-0">Image</th>
+                    <th class="p-2 border-0">Nom</th>
+                    <th class="p-2 border-0">Description</th>
+                    <th class="p-2 border-0 text-right">Prix</th>
+                    <th class="border-0"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($produits as $produit) : ?>
+                <tr>
+                    <td class="text-left"><img src='http://placeholder.pics/svg/100'/></td>
+                    <td class="text-left align-middle"><a href="<?= $this->url('produit', ["action" => "description", "id" => $produit->id]) ?>"><?= $produit->nom ?></a></td>
+                    <td class="text-left align-middle"><?= $produit->description ?></td>
+                    <td class="text-right align-middle"><?= number_format($produit->prix,2,'.',' ') ?> $</td>
+                    <td class="text-center align-middle">
+                    <a href="<?= $this->url('produit' , ['action' => 'retirerPanier', 'id' => $produit->id]) ?>" role="button" class='btn btn-danger'/>X</a>
+                    </td>
+                </tr>
+                <?php $sousTotal += $produit->prix; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+    $tps = $sousTotal * 0.05;
+    $tvq = $sousTotal * 0.09975;
+    $total = $sousTotal + $tps + $tvq;
+    ?>
+    <div class="col border justify-content-center rounded-top p-0 m-1">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="border-0">Sous-total: </td>
+            <td class="text-right border-0"><?=number_format($sousTotal,2,'.',' ')?> $</td>
+          </tr>
+          <tr>
+            <td>TPS: </td>
+            <td class="text-right"><?=number_format($tps,2,'.',' ')?> $</td>
+          </tr>
+          <tr>
+            <td>TVQ: </td>
+            <td class="text-right"><?=number_format($tvq,2,'.',' ')?> $</td>
+          </tr>
+          <tr>
+            <td>Total: </td>
+            <td class="text-right"><?=number_format($total,2,'.',' ')?> $</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
-<?php endforeach; ?>
-</div>
-
-<?php if (!empty($produits)) : ?>
-
-    <a href="<?= $this->url('produit', ['action' => 'viderPanier']) ?>" role="button" class='btn btn-danger'/>Vider Panier</a>
+  <a href="<?= $this->url('produit', ['action' => 'viderPanier']) ?>" role="button" class='btn btn-danger'/>Vider Panier</a>
+  <a href="<?= $this->url('produit', ['action' => 'payer']) ?>" role="button" class='btn btn-success float-right'/>Payer</a>
 
 <?php else : ?>
 

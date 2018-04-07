@@ -25,3 +25,14 @@ nav h1 {
 nav {
     margin-bottom : 20px;
 }
+.btnAdmin{
+    text-align:right;
+}
+.nav-item{
+	display:table;
+	height:55px;
+}
+.nav-link{
+	display:table-cell;
+	vertical-align:middle;
+}

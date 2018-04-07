@@ -35,11 +35,9 @@ class AuthController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
             $form->setData($data);
-            $info = $form->getMessages();
             // if($form->isValid()) {
                 // $data = $form->getData();
                 $result = $this->_authManager->login($data['username'], $data['password']);
-                $infos = "looked at login";
 
                 if ($result->getCode() == Result::SUCCESS) {
                     $redirectUrl = $this->params()->fromPost('redirect_url', '');
@@ -66,8 +64,7 @@ class AuthController extends AbstractActionController
         return new ViewModel([
             'form' => $form,
             'isLoginError' => $isLoginError,
-            'redirectUrl' => $redirectUrl,
-            'infos' => $infos
+            'redirectUrl' => $redirectUrl
         ]);
     }
 

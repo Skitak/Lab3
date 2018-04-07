@@ -87,6 +87,25 @@ class ProduitController extends AbstractActionController
         return $this->redirect()->toRoute('produit', ["action" => "panier"]);
     }
 
+    //Paye et vide le panier
+    public function payerAction(){
+        $_SESSION["panier"] = [];
+
+        $success = rand(0,1);
+
+        //String 5 lettres + 10 chiffres random
+        $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        $rand = '';
+        foreach (array_rand($seed, 5) as $k) $rand .= $seed[$k];
+
+        $noConfirm = $rand . str_pad(rand(0, pow(10, 10)-1), 10, '0', STR_PAD_LEFT);
+
+        return new ViewModel([
+            'noConfirm' => $noConfirm,
+            'success' => $success
+        ]);
+    }
+
     //Retourne tous les produits d'une page pour l'administrateur
     public function adminAction(){
         $paginator =  $this->tableProduit->fetchAll(true);
